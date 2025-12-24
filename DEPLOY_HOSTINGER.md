@@ -7,6 +7,26 @@
 - **Mot de passe** : `Malick@2025`
 - **Dépôt Git** : `https://github.com/Mlk8Fev/Comptage-Voix-GBAHI-.git`
 
+## ⚠️ IMPORTANT : Configuration PHP requise
+
+**L'application nécessite PHP 8.2 ou supérieur.**
+
+### Avant de commencer, configurez PHP 8.2+ :
+
+1. Dans hPanel, allez dans **"Select PHP Version"** ou **"Versions PHP"**
+2. Sélectionnez **PHP 8.2** ou **PHP 8.3** (si disponible)
+3. Cliquez sur **"Set as current"** ou **"Appliquer"**
+4. Vérifiez que les extensions suivantes sont activées :
+   - `pdo_mysql`
+   - `mbstring`
+   - `openssl`
+   - `tokenizer`
+   - `xml`
+   - `ctype`
+   - `json`
+   - `fileinfo`
+   - `curl`
+
 ## Étapes de déploiement
 
 ### 1. Cloner le dépôt Git
@@ -48,10 +68,22 @@ DB_PASSWORD=Malick@2025
 
 ### 3. Exécuter les commandes (via SSH ou Terminal hPanel)
 
+**⚠️ IMPORTANT : Assurez-vous que PHP 8.2+ est sélectionné avant d'exécuter ces commandes !**
+
 ```bash
 cd public_html
 
+# Vérifier la version de PHP
+php -v
+# Doit afficher PHP 8.2.x ou supérieur
+
+# Si ce n'est pas le cas, utilisez la version spécifique :
+# /opt/alt/php82/usr/bin/php -v
+# /opt/alt/php83/usr/bin/php -v
+
 # Installer les dépendances
+# Si composer utilise la mauvaise version PHP, utilisez :
+# /opt/alt/php82/usr/bin/php /usr/local/bin/composer install --optimize-autoloader --no-dev
 composer install --optimize-autoloader --no-dev
 
 # Générer la clé d'application
@@ -99,6 +131,28 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 ```
+
+## Résolution des problèmes Composer
+
+Si vous obtenez l'erreur "Your requirements could not be resolved" :
+
+1. **Vérifiez la version PHP** :
+   ```bash
+   php -v
+   ```
+
+2. **Si PHP < 8.2, utilisez le chemin complet** :
+   ```bash
+   /opt/alt/php82/usr/bin/php /usr/local/bin/composer install --optimize-autoloader --no-dev
+   ```
+
+3. **Ou configurez Composer pour utiliser PHP 8.2** :
+   ```bash
+   alias composer='/opt/alt/php82/usr/bin/php /usr/local/bin/composer'
+   composer install --optimize-autoloader --no-dev
+   ```
+
+4. **Vérifiez les extensions PHP** dans hPanel → Select PHP Version → Extensions
 
 ## Comptes administrateurs créés
 
