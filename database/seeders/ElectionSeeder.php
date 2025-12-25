@@ -157,5 +157,46 @@ class ElectionSeeder extends Seeder
                 ]);
             }
         }
+
+        // Créer les lieux de vote pour MAYO
+        $lieuxMayo = [
+            'GROUPE SCOLAIRE BAKAYO' => [381, 376], // BV 01: 381, BV 02: 376
+            'EPP DEGAULEKRO CPT' => [131], // BV 01: 131
+            'EPP MADOU SAHOUA 1 DE MAYO' => [400, 397], // BV 01: 400, BV 02: 397
+            'EPP KOMEAYO' => [368], // BV 01: 368
+            'EPP MADOU SAHOUA II DE MAYO' => [403, 0], // BV 01: 403, BV 02: 0
+            'GROUPE SCOLAIRE MOUSSAYO' => [346, 344], // BV 01: 346, BV 02: 344
+            'EPP KOUAMEKRO' => [110], // BV 01: 110
+            'EPP ALLANGBAKRO' => [101], // BV 01: 101
+            'EPP BAKAYO 3' => [144], // BV 01: 144
+            'EPP KONANKRO' => [64], // BV 01: 64
+            'EPP MADOUSAHOUA 3' => [101], // BV 01: 101
+        ];
+
+        // Créer les lieux de vote MAYO avec leurs bureaux
+        foreach ($lieuxMayo as $nomLieu => $totaux) {
+            $lieu = LieuVote::create([
+                'nom' => $nomLieu,
+                'commune' => 'MAYO',
+                'circonscription' => 'Circonscription MAYO',
+            ]);
+
+            // Créer les bureaux de vote avec les totaux réels
+            foreach ($totaux as $index => $total) {
+                if ($total > 0) {
+                    // Répartir le total entre hommes et femmes (approximativement 50/50)
+                    $hommes = (int)($total * 0.5);
+                    $femmes = $total - $hommes;
+                    
+                    BureauVote::create([
+                        'lieu_vote_id' => $lieu->id,
+                        'numero' => str_pad($index + 1, 2, '0', STR_PAD_LEFT),
+                        'hommes_inscrits' => $hommes,
+                        'femmes_inscrits' => $femmes,
+                        'est_ouvert' => true,
+                    ]);
+                }
+            }
+        }
     }
 }
