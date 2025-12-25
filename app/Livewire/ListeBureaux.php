@@ -16,7 +16,7 @@ class ListeBureaux extends Component
     public function mount()
     {
         $communeFromRequest = request()->query('commune');
-        if ($communeFromRequest && in_array($communeFromRequest, ['LILIYO', 'OKROUYO'])) {
+        if ($communeFromRequest && in_array($communeFromRequest, ['LILIYO', 'OKROUYO', 'MAYO'])) {
             $this->commune = $communeFromRequest;
         }
     }
