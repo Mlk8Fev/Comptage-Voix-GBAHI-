@@ -25,6 +25,9 @@
                             <a href="{{ route('liste-bureaux', ['commune' => 'OKROUYO']) }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('liste-bureaux') && request('commune') == 'OKROUYO' ? 'bg-blue-800 font-semibold shadow-lg' : 'hover:bg-blue-500' }}">
                                 🏛️ OKROUYO
                             </a>
+                            <a href="{{ route('liste-bureaux', ['commune' => 'MAYO']) }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('liste-bureaux') && request('commune') == 'MAYO' ? 'bg-blue-800 font-semibold shadow-lg' : 'hover:bg-blue-500' }}">
+                                🏛️ MAYO
+                            </a>
                             <a href="{{ route('historique') }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('historique') ? 'bg-blue-800 font-semibold shadow-lg' : 'hover:bg-blue-500' }}">
                                 📜 Historique
                             </a>

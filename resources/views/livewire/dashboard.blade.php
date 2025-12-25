@@ -31,10 +31,10 @@
             <p class="text-purple-100">Gérer les bureaux de vote d'OKROUYO</p>
         </a>
 
-        <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl shadow-lg p-6">
-            <div class="text-4xl mb-3">ℹ️</div>
-            <h3 class="text-xl font-bold mb-2">Information</h3>
-            <p class="text-orange-100 text-sm">Utilisez le menu de navigation pour accéder aux différentes sections</p>
-        </div>
+        <a href="{{ route('liste-bureaux', ['commune' => 'MAYO']) }}" class="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl shadow-lg p-6 hover:shadow-xl transition transform hover:scale-105">
+            <div class="text-4xl mb-3">🏛️</div>
+            <h3 class="text-xl font-bold mb-2">Bureaux MAYO</h3>
+            <p class="text-orange-100">Gérer les bureaux de vote de MAYO</p>
+        </a>
     </div>
 </div>
