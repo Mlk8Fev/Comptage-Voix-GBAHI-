@@ -9,10 +9,14 @@ use App\Models\ResultatBureau;
 use App\Models\Vote;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 #[Layout('layouts.app')]
 class SaisieVotes extends Component
 {
+    use WithFileUploads;
+    
     public $bureauVoteId;
     public $bureauVote;
     public $candidats = [];
@@ -23,6 +27,8 @@ class SaisieVotes extends Component
     public $bulletins_nuls = 0;
     public $bulletins_blancs = 0;
     public $suffrage_exprime = 0;
+    public $pv_photo = null;
+    public $pv_photo_existant = null;
     
     // Pour la confirmation
     public $showConfirmModal = false;
@@ -51,6 +57,7 @@ class SaisieVotes extends Component
             $this->bulletins_nuls = $resultat->bulletins_nuls;
             $this->bulletins_blancs = $resultat->bulletins_blancs;
             $this->suffrage_exprime = $resultat->suffrage_exprime;
+            $this->pv_photo_existant = $resultat->pv_photo;
         }
         
         // Charger les votes existants (optimisé)
@@ -95,6 +102,7 @@ class SaisieVotes extends Component
             'bulletins_blancs' => 'required|integer|min:0',
             'suffrage_exprime' => 'required|integer|min:0',
             'votes.*' => 'required|integer|min:0',
+            'pv_photo' => 'nullable|image|max:5120', // Max 5MB
         ]);
 
         // Vérifier que la somme des votes = suffrage exprimé
@@ -110,6 +118,18 @@ class SaisieVotes extends Component
             ->pluck('nombre_voix', 'candidat_id')
             ->toArray();
 
+        // Gérer l'upload de la photo du PV
+        $pvPhotoPath = $this->pv_photo_existant;
+        if ($this->pv_photo) {
+            // Supprimer l'ancienne photo si elle existe
+            if ($pvPhotoPath && Storage::disk('public')->exists($pvPhotoPath)) {
+                Storage::disk('public')->delete($pvPhotoPath);
+            }
+            
+            // Stocker la nouvelle photo
+            $pvPhotoPath = $this->pv_photo->store('pv-photos', 'public');
+        }
+
         // Enregistrer les résultats du bureau
         ResultatBureau::updateOrCreate(
             ['bureau_vote_id' => $this->bureauVoteId],
@@ -118,6 +138,7 @@ class SaisieVotes extends Component
                 'bulletins_nuls' => $this->bulletins_nuls,
                 'bulletins_blancs' => $this->bulletins_blancs,
                 'suffrage_exprime' => $this->suffrage_exprime,
+                'pv_photo' => $pvPhotoPath,
                 'derniere_mise_a_jour' => now(),
             ]
         );

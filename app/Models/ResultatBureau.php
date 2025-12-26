@@ -15,6 +15,7 @@ class ResultatBureau extends Model
         'bulletins_nuls',
         'bulletins_blancs',
         'suffrage_exprime',
+        'pv_photo',
         'derniere_mise_a_jour',
     ];
 

@@ -18,5 +18,5 @@ AND NOT EXISTS (
     SELECT 1 FROM bureaux_vote 
     WHERE lieu_vote_id = lieux_vote.id 
     AND numero = '02'
-);
+);x
 

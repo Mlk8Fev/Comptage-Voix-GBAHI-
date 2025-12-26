@@ -130,6 +130,49 @@
                 </div>
             </div>
 
+            <!-- Upload de la photo du PV -->
+            <div class="mt-8 pt-6 border-t-2 border-gray-200">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">📸 Photo du Procès-Verbal (PV)</h2>
+                <p class="text-gray-600 text-sm mb-4">Prenez une photo du PV et uploadez-la comme preuve de confirmation</p>
+                
+                <div class="space-y-4">
+                    @if($pv_photo_existant)
+                        <div class="bg-green-50 border-2 border-green-200 rounded-lg p-4 mb-4">
+                            <p class="text-green-800 font-semibold mb-2">✓ Photo du PV déjà uploadée</p>
+                            <div class="flex items-center gap-4">
+                                <img src="{{ Storage::url($pv_photo_existant) }}" alt="PV" class="max-w-xs max-h-48 rounded-lg shadow-md border-2 border-gray-300">
+                                <div>
+                                    <p class="text-sm text-gray-600">Vous pouvez la remplacer en uploadant une nouvelle photo ci-dessous.</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            {{ $pv_photo_existant ? 'Remplacer la photo du PV' : 'Uploader la photo du PV' }}
+                            <span class="text-gray-500 text-xs">(Format: JPG, PNG - Max 5MB)</span>
+                        </label>
+                        <input 
+                            type="file" 
+                            wire:model="pv_photo"
+                            accept="image/*"
+                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        >
+                        @error('pv_photo') 
+                            <span class="text-red-500 text-sm mt-1">{{ $message }}</span> 
+                        @enderror
+                        
+                        @if($pv_photo)
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600 mb-2">Aperçu de la nouvelle photo :</p>
+                                <img src="{{ $pv_photo->temporaryUrl() }}" alt="Aperçu PV" class="max-w-xs max-h-48 rounded-lg shadow-md border-2 border-blue-300">
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
             <div class="mt-8 flex justify-end gap-4 pt-6 border-t-2 border-gray-200">
                 <a href="{{ url()->previous() }}" class="bg-gray-500 text-white px-8 py-3 rounded-lg hover:bg-gray-600 transition font-semibold shadow">
                     Annuler
