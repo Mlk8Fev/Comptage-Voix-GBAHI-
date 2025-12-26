@@ -145,7 +145,8 @@ class ElectionSeeder extends Seeder
             ]);
 
             // Créer les bureaux de vote (1 à 3 selon le lieu)
-            $nbBureaux = in_array($nomLieu, ['EPP YACOLIDABOUO', 'GS LILIYO 1 ET 2']) ? 3 : 1;
+            $nbBureaux = in_array($nomLieu, ['EPP YACOLIDABOUO', 'GS LILIYO 1 ET 2']) ? 3 : 
+                        (in_array($nomLieu, ['GROUPE SCOLAIRE LESSIRI']) ? 2 : 1);
 
             for ($i = 1; $i <= $nbBureaux; $i++) {
                 BureauVote::create([
