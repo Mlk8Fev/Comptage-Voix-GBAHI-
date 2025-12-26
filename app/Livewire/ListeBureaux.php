@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\BureauVote;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -12,6 +13,9 @@ class ListeBureaux extends Component
 {
     public $commune = 'LILIYO';
     public $search = '';
+    public $showPvModal = false;
+    public $pvPhotoUrl = null;
+    public $pvBureauNom = null;
 
     public function mount()
     {
@@ -25,6 +29,20 @@ class ListeBureaux extends Component
     public function refreshData()
     {
         // Les données seront automatiquement rafraîchies
+    }
+
+    public function voirPv($photo, $bureau)
+    {
+        $this->pvPhotoUrl = $photo;
+        $this->pvBureauNom = $bureau;
+        $this->showPvModal = true;
+    }
+
+    public function fermerPvModal()
+    {
+        $this->showPvModal = false;
+        $this->pvPhotoUrl = null;
+        $this->pvBureauNom = null;
     }
 
     public function render()

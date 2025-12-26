@@ -102,7 +102,7 @@ class SaisieVotes extends Component
             'bulletins_blancs' => 'required|integer|min:0',
             'suffrage_exprime' => 'required|integer|min:0',
             'votes.*' => 'required|integer|min:0',
-            'pv_photo' => 'nullable|image|max:5120', // Max 5MB
+            'pv_photo' => 'nullable|image|max:25600', // Max 25MB
         ]);
 
         // Vérifier que la somme des votes = suffrage exprimé

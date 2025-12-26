@@ -151,7 +151,7 @@
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">
                             {{ $pv_photo_existant ? 'Remplacer la photo du PV' : 'Uploader la photo du PV' }}
-                            <span class="text-gray-500 text-xs">(Format: JPG, PNG - Max 5MB)</span>
+                            <span class="text-gray-500 text-xs">(Format: JPG, PNG - Max 25MB)</span>
                         </label>
                         <input 
                             type="file" 
