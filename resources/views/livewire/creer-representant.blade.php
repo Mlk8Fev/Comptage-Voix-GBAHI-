@@ -95,6 +95,7 @@
                     <option value="">Toutes les communes</option>
                     <option value="LILIYO">LILIYO</option>
                     <option value="OKROUYO">OKROUYO</option>
+                    <option value="MAYO">MAYO</option>
                 </select>
             </div>
 
